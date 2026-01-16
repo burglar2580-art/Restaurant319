@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
 
 <h2 class="mt-4">Welcome to Our Restaurant</h2>
-<p>Enjoy authentic Cameroonian meals.</p>
+<p>Enjoy authentic Cameroonian meals and more.</p>
 
 <div id="demoCarousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
