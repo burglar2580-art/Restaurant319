@@ -35,19 +35,23 @@ if (!isset($_SESSION['user_id'])) {
 <?php
 if (isset($_POST['order'])) {
 
+    $userId   = $_SESSION['user_id'];
     $userName = $_SESSION['user_name'];
-    $meal     = $_GET['meal'];
-    $price    = $_GET['price'];
-    $qty      = $_POST['qty'];
-    $payment  = $_POST['payment'];
-    $total    = $qty * $price;
+
+    $meal    = $_GET['meal'];
+    $price   = $_GET['price'];
+    $qty     = $_POST['qty'];
+    $payment = $_POST['payment'];
+
+    $total = $qty * $price;
 
     $stmt = $conn->prepare(
-        "INSERT INTO orders (user_name, meal_name, quantity, payment_method, total_price)
-         VALUES (?, ?, ?, ?, ?)"
+        "INSERT INTO orders (user_id, user_name, meal_name, quantity, payment_method, total_price)
+         VALUES (?, ?, ?, ?, ?, ?)"
     );
 
     $stmt->execute([
+        $userId,
         $userName,
         $meal,
         $qty,
@@ -55,9 +59,10 @@ if (isset($_POST['order'])) {
         $total
     ]);
 
-    header("Location: receipt.php?total=$total");
+    header("Location: receipt.php");
     exit();
 }
+
 
 ?>
 
