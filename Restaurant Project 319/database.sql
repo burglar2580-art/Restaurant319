@@ -27,4 +27,13 @@ INSERT INTO meals (name, price) VALUES
 ('Ndole', 2500),
 ('Eru', 3000),
 ('Achu', 3500),
-('Koki', 2000);
+('Koki', 2000),
+('KatiKati', 1500),
+('Ekwang', 2000),
+('Banga-Soup', 2500);
+
+ALTER TABLE users ADD UNIQUE (email);
+
+ALTER TABLE orders ADD user_id INT;
+
+
