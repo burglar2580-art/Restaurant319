@@ -35,7 +35,7 @@ $mealImages = [
     "Achu" => "achu.jpg",
     "Koki" => "koki.jpg",
     "Ekwang" => "ekwang.jpg",
-    "Kati Kati" => "katikati.jpg"
+    "Kati Kati" => "katikati.jpg",
 ];
 ?>
 
@@ -77,6 +77,9 @@ foreach ($meals as $meal) {
 <button id="toggleMenu" class="btn btn-primary d-block mx-auto mt-4">
     Hide / Show Menu
 </button>
+<div class="text-center mt-5 fade-section">
+    <a href="logout.php" class="btn btn-outline-success btn-lg">Logout</a>
+</div>
 
 <script>
 // Hide / Show menu
@@ -94,5 +97,4 @@ $("#searchMeal").on("keyup", function () {
     });
 });
 </script>
-
 <?php include 'includes/footer.php'; ?>

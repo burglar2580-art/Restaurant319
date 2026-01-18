@@ -15,20 +15,27 @@ include 'includes/db.php';
 <?php
 if (isset($_POST['register'])) {
 
-    $stmt = $conn->prepare(
-        "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
-    );
+    try {
+        $stmt = $conn->prepare(
+            "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
+        );
 
-    $stmt->execute([
-        $_POST['name'],
-        $_POST['email'],
-        password_hash($_POST['password'], PASSWORD_DEFAULT)
-    ]);
+        $stmt->execute([
+            $_POST['name'],
+            $_POST['email'],
+            password_hash($_POST['password'], PASSWORD_DEFAULT)
+        ]);
 
-    echo "<p class='text-success mt-3'>Registration successful!</p>";
-    
-    header("Location: menu.php?");
-    exit();
+        echo "<p class='text-success mt-3'>
+                Registration successful! <a href='login.php'>Login here</a>
+              </p>";
+
+    } catch (PDOException $e) {
+        echo "<p class='text-danger mt-3'>
+                This email is already registered. Please login.
+              </p>";
+    }
 }
 ?>
+
 <?php include 'includes/footer.php'; ?>

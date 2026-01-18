@@ -1,6 +1,11 @@
-<?php 
-include 'includes/header.php'; 
-include 'includes/db.php'; 
+<?php
+include 'includes/header.php';
+include 'includes/db.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <h2>Place Your Order</h2>
@@ -30,29 +35,30 @@ include 'includes/db.php';
 <?php
 if (isset($_POST['order'])) {
 
-    $name   = $_POST['name'];
-    $qty    = $_POST['qty'];
-    $meal   = $_GET['meal'];
-    $price  = $_GET['price'];
-    $pay    = $_POST['payment'];
-    $total  = $qty * $price;
+    $userName = $_SESSION['user_name'];
+    $meal     = $_GET['meal'];
+    $price    = $_GET['price'];
+    $qty      = $_POST['qty'];
+    $payment  = $_POST['payment'];
+    $total    = $qty * $price;
 
     $stmt = $conn->prepare(
         "INSERT INTO orders (user_name, meal_name, quantity, payment_method, total_price)
-         VALUES (:name, :meal, :qty, :payment, :total)"
+         VALUES (?, ?, ?, ?, ?)"
     );
 
     $stmt->execute([
-        ':name'    => $name,
-        ':meal'    => $meal,
-        ':qty'     => $qty,
-        ':payment' => $pay,
-        ':total'   => $total
+        $userName,
+        $meal,
+        $qty,
+        $payment,
+        $total
     ]);
 
     header("Location: receipt.php?total=$total");
     exit();
 }
+
 ?>
 
 <?php include 'includes/footer.php'; ?>
